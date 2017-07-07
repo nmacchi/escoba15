@@ -14,10 +14,10 @@ import com.jme3.scene.Spatial;
  */
 public class Card extends Geometry{
     
-    Spatial cardModel;
-    CardTypes type;
-    int value;
-    boolean isBroom;
+    private Spatial cardModel;
+    private CardTypes type;
+    private int value;
+    private boolean isBroom;
    
     
     /**

@@ -16,8 +16,9 @@ import mygame.entities.card.Card;
  */
 public class Deck extends Geometry{
 
+    public static final int CARDS_AMOUNT = 40; 
     
-    List<Card> cards = new ArrayList<Card>();
+    private List<Card> cards = new ArrayList<Card>();
     
     
     /**

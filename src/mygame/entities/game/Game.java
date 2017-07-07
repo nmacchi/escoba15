@@ -20,12 +20,23 @@ import mygame.entities.player.Player;
  */
 public class Game {
     
-    Deck deck;
-    List<Player> players = new ArrayList<Player>();
+    public static final int MAX_CARD_PER_PLAYER = 3;
+    public static final int INITAL_CARDS_ON_TABLE = 4;
+    
+    int number; 
+    private Deck deck;
+    private List<Player> players = new ArrayList<Player>();
+    
     
     Game(){
         deck = new Deck();
     }
+    
+    
+    /**
+     * GETTERS AND SETTERS
+     * @return 
+     */
 
     public Deck getDeck() {
         return deck;
@@ -42,7 +53,17 @@ public class Game {
     public void setPlayers(List<Player> players) {
         this.players = players;
     }
-   
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+    
+    
+    
     
     /**
      * Build the cards which will be used for the game
@@ -72,17 +93,19 @@ public class Game {
     /**
      * Random selection of the first dealer who will start the game
      */
-    public void selectPrincipalDealer(){
+    public void selectInitialDealer(){
         Random random = new Random();
         Player player = players.get(random.nextInt(players.size()));
-        player.setIsDealer(Boolean.TRUE);
-        
-        if(player.getPlayerNumber() != players.size()){
-            buildNextRound(player.getPlayerNumber());
-        }
+       
+        buildNextRound(player.getPlayerNumber());
         
     }
     
+    
+    public void selectNextDealer(){
+        players.get(players.size() -1).setIsDealer(Boolean.FALSE);
+        buildNextRound(1);
+    }
     
     /**
      * 
@@ -98,22 +121,28 @@ public class Game {
     
     
     /**
-     * Rotate the players array N times only if the player is not last one in the list 
-     * @param index 
+     * Rotate the players array N times only if the player is not the last one in the list
+     * 
+     * @param amountRotation 
      */
-    public void buildNextRound(int index){
-        Player plAux;
-        for(int x=0; x<=index; x++){
-            plAux = players.get(0);
+    public void buildNextRound(int amountRotation){
+        if(amountRotation != players.size()){
+            Player plAux;
+            for(int x=0; x<=amountRotation ;x++){
+                plAux = players.get(0);
             
-            for(int j=0; j<= players.size(); j++){  // from 0 a 3 if I have 4 players
-                if(j == players.size() -1){
-                   players.set(j, plAux); //Last position in array
-                }else{
-                   players.set(j, players.get(j+1));
+                for(int j=0; j<= players.size(); j++){  // from 0 a 3 if I have 4 players
+                    if(j == players.size() -1){
+                        players.set(j, plAux); //Last position in array
+                    }else{
+                        players.set(j, players.get(j+1));
+                    }
                 }
-                
             }
-        }   
+        }
+        
+        players.get(players.size() -1).setIsDealer(Boolean.TRUE);
+        
+        
     }
 }

@@ -15,6 +15,8 @@ import java.util.Random;
 import java.util.Set;
 import mygame.entities.card.Card;
 import mygame.entities.deck.Deck;
+import mygame.entities.desk.Desk;
+import mygame.entities.game.Game;
 
 /**
  *
@@ -22,20 +24,20 @@ import mygame.entities.deck.Deck;
  */
 public class Player {
     
-    static int instanceCounter;
+    public static int instanceCounter;
     
-    String name;
-    int playerNumber;
-    boolean isBot;
-    boolean isMyTurn;
-    boolean isDealer;
-    List<Card> cardOnHand = new ArrayList<>();      //Cards use for playing. 3 is the limit.    
-    List<Card> cardEarned = new ArrayList<>();      //Cards taken from the desk    
-    int gamePoints;                                     //Points earned in the round
-    int totalPoints;                                    //Points earned in the game    
-    Deck deck;
+    private String name;
+    private int playerNumber;
+    private boolean isBot;
+    private boolean isMyTurn;
+    private boolean isDealer;
+    private List<Card> cardOnHand = new ArrayList<>();      //Cards use for playing. 3 is the limit.    
+    private List<Card> cardEarned = new ArrayList<>();      //Cards taken from the desk    
+    private int gamePoints;                                     //Points earned in the round
+    private int totalPoints;                                    //Points earned in the game    
+    private Deck deck;
     
-    
+    private boolean isInitialRound;
     
     Map<String, Integer> pointsDetails = new HashMap<>();
     
@@ -48,6 +50,7 @@ public class Player {
         pointsDetails.put("cards", 0);
         pointsDetails.put("gold", 0);
         pointsDetails.put("seventh", 0);
+        pointsDetails.put("sevenGold", 0);
         pointsDetails.put("broom",0);
                 
     }
@@ -96,6 +99,37 @@ public class Player {
             pointsDetails.put(i.next().toString(), 0);
         }
     }
+    
+    public void dealCards(List<Player> players){
+        if(deck.getCards().size() == deck.CARDS_AMOUNT){
+            isInitialRound = Boolean.TRUE;
+        }else{
+            isInitialRound = Boolean.FALSE;
+        }
+        
+        //Deal cards to players
+        for(int x = 0; x <= Game.MAX_CARD_PER_PLAYER; x++){
+            for(Player pl : players){
+                if(!deck.getCards().isEmpty() && deck.getCards() != null){
+                    pl.getCardOnHand().add(deck.getCards().remove(0));
+                }else{
+                    break;
+                }
+            }
+        }
+        
+        //If it is the first round we must put 4 cards on the table in addition to the cards were dealed to players
+        if(isInitialRound){
+            for(int j = 0; j <= Game.INITAL_CARDS_ON_TABLE; j++){
+                Desk.cards.add(deck.getCards().remove(0));
+            }
+        }
+        
+        
+        
+        
+    } 
+    
 
     /**
      * GETTERS AND SETTERS

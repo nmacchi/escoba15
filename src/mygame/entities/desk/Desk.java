@@ -16,8 +16,8 @@ import mygame.entities.card.Card;
  */
 public class Desk extends Geometry{
     
-    List<Card> cards = new ArrayList<Card>();
-    int points;
+    public static List<Card> cards = new ArrayList<Card>();
+    private int points;
     
     
     
