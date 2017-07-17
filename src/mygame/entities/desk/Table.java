@@ -14,9 +14,9 @@ import mygame.entities.card.Card;
  *
  * @author nicolas
  */
-public class Desk extends Geometry{
+public class Table extends Geometry{
     
-    public static List<Card> cards = new ArrayList<Card>();
+    private  List<Card> cards = new ArrayList<Card>();
     private int points;
     
     
@@ -42,6 +42,11 @@ public class Desk extends Geometry{
      * @return 
      */
     public int getPoints() {
+        points = 0;
+        for(Card card : cards){
+            points += card.getValue();
+        }
+        
         return points;
     }
 

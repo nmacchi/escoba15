@@ -15,7 +15,7 @@ import java.util.Random;
 import java.util.Set;
 import mygame.entities.card.Card;
 import mygame.entities.deck.Deck;
-import mygame.entities.desk.Desk;
+import mygame.entities.desk.Table;
 import mygame.entities.game.Game;
 
 /**
@@ -35,8 +35,9 @@ public class Player {
     private List<Card> cardEarned = new ArrayList<>();      //Cards taken from the desk    
     private int gamePoints;                                     //Points earned in the round
     private int totalPoints;                                    //Points earned in the game    
-    private Deck deck;
+    private Table table;
     
+    private Deck deck;
     private boolean isInitialRound;
     
     Map<String, Integer> pointsDetails = new HashMap<>();
@@ -121,7 +122,7 @@ public class Player {
         //If it is the first round we must put 4 cards on the table in addition to the cards were dealed to players
         if(isInitialRound){
             for(int j = 0; j <= Game.INITAL_CARDS_ON_TABLE; j++){
-                Desk.cards.add(deck.getCards().remove(0));
+                table.getCards().add(deck.getCards().remove(0));
             }
         }
         
@@ -213,6 +214,14 @@ public class Player {
 
     public void setPlayerNumber(int playerNumber) {
         this.playerNumber = playerNumber;
+    }
+
+    public Table getTable() {
+        return table;
+    }
+
+    public void setTable(Table table) {
+        this.table = table;
     }
     
     
