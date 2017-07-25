@@ -131,6 +131,15 @@ public class Player {
         
     } 
     
+    /**
+     *
+     * @param card
+     * @return
+     */
+    public Map<Integer, List<Card>> play(Card card){
+        return null;
+    }
+    
 
     /**
      * GETTERS AND SETTERS
